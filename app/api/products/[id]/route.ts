@@ -3,9 +3,9 @@ import supabase from "@/app/config/supabase";
 
 export async function DELETE(
   request: Request,
-  context: { params: Promise<{ id: number }> }
+  context: { params: Promise<{ id: number }> } //params is actually a Promise that needs to be awaited.
 ) {
-    const id  = (await context.params).id;
+    const id  = (await context.params).id; //await the promise to get the id
 
   if (!id) {
     return NextResponse.json(
@@ -26,10 +26,6 @@ export async function DELETE(
   return NextResponse.json({ success: true, data });
 }
 
-// export async function GET(
-//   request: Request,
-//   { params }: { params: { id: string } }
-// ) 
 export async function GET(
     req: Request, 
     context: { params: Promise<{ id: number }> }
