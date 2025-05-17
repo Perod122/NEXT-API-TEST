@@ -30,7 +30,7 @@ export async function GET(
     req: Request, 
     context: { params: Promise<{ id: number }> }
 ) {
-  const id  = (await context.params).id;
+  const id = (await context.params).id;
 
   if (!id) {
     return NextResponse.json(
@@ -39,12 +39,30 @@ export async function GET(
     );
   }
   
-  const { data, error } = await supabase.from("Products").select("*").eq("id", id).single();
+  // First check if the product exists
+  const { data: checkData, count } = await supabase
+    .from("Products")
+    .select("*", { count: "exact" })
+    .eq("id", id);
+    
+  if (count === 0) {
+    return NextResponse.json(
+      { error: `Product with ID ${id} not found` },
+      { status: 404 }
+    );
+  }
+  
+  // If product exists, get it with single()
+  const { data, error } = await supabase
+    .from("Products")
+    .select("*")
+    .eq("id", id)
+    .single();
   
   if (error) {
     return NextResponse.json(
       { error: error.message },
-      { status: error.code === "PGRST116" ? 404 : 500 }
+      { status: 500 }
     );
   }
   
