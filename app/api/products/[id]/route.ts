@@ -40,14 +40,14 @@ export async function GET(
   }
   
   // First check if the product exists
-  const { data: checkData, count } = await supabase
+  const { data: checkData, count, error: checkError } = await supabase
     .from("Products")
     .select("*", { count: "exact" })
     .eq("id", id);
     
-  if (count === 0) {
+  if (checkError) {
     return NextResponse.json(
-      { error: `Product with ID ${id} not found` },
+      { error: `We have internal error with this ${id}` },
       { status: 404 }
     );
   }
