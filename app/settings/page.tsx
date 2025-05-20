@@ -11,6 +11,6 @@ export default async function Settings() {
     if (error || !data?.user) {
       redirect('/login')
     }
-  
+  //mys self believe
     return <SettingsClient user={data.user} />
   } 

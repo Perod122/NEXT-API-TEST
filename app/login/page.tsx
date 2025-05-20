@@ -5,14 +5,14 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/client";
-
+//action login
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const supabase = createClient();
-
+  //handle login
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
