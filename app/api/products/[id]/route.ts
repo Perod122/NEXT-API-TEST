@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 import supabase from "@/app/config/supabase";
-//ill code again after this SWE Exam
-//lord please help me pass this exam
-//i will put my all effort to pass this exam
+//i passed the SWE Exam but i failed the interview
+//better luck next time
 export async function DELETE(
   request: Request,
   context: { params: Promise<{ id: number }> } //params is actually a Promise that needs to be awaited.
